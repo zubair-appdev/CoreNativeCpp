@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cstring>
 #include <memory>
+
+#include "threading.h"
+
 using namespace std;
 
 class Buffer
@@ -91,6 +94,9 @@ int main()
 
     delete[] name;
     name = nullptr;
+
+    const char *name3 = "Hello";
+    cout<<name3<<endl; //no delete is required as it stored in .rodata readonly data i.e, literals store there
 
     Buffer b1("Maytech"); // (OR) Buffer b1 = "Maytech";
 
@@ -190,6 +196,8 @@ int main()
     cout<<max<<" :max"<<endl;
     cout<<max2<<" :max2"<<endl;
 
+    //Just to write more code in threading class
+    threading t1;
 
     return 0;
 }
