@@ -1,10 +1,13 @@
 #include <iostream>
 #include <cstring>
 #include <memory>
+#include <climits>
 
 #include "threading.h"
 
 using namespace std;
+
+bool recurseFunc(const string &s,int left,int right);
 
 class Buffer
 {
@@ -79,8 +82,59 @@ void changeNumPointer(int *n)
     *n+=10;
 }
 
+
+class animal
+{
+public:
+    animal(){
+        cout<<"animal constructor called"<<endl;
+    }
+
+    virtual void speak()
+    {
+        cout<<"animal speak"<<endl;
+
+    }
+
+    virtual ~animal()
+    {
+        cout<<"animal destructor called"<<endl;
+
+    }
+};
+
+class cat : public animal
+{
+public:
+    cat(){
+        cout<<"cat constructor called"<<endl;
+    }
+
+    void speak() override
+    {
+        cout<<"cat speaks"<<endl;
+
+    }
+
+    ~cat(){
+        cout<<"cat destructor called"<<endl;
+    }
+};
+
+
 int main()
 {
+
+    //Run time polymorphism
+    animal *animal1 = new cat();
+    animal1->speak();
+
+    delete animal1;
+
+    //----------------OR----------------
+//    auto animal1 = make_unique<cat>();
+//    animal1->speak();
+
     cout << "Hello World!" << endl;
     char name2[10] = "zubair2";
     cout<<name2<<" :name2"<<endl;
@@ -199,5 +253,42 @@ int main()
     //Just to write more code in threading class
     threading t1;
 
+
+    int* arr2 = new int[1'000'000];
+
+    for (int i = 0; i < 1'000'000; ++i)
+        arr2[i] = i;   // touch memory
+
+
+    delete[] arr2;
+
+
+    // Palindrome using recursion
+
+    string inputStr = "ghihg";
+
+    bool answer = recurseFunc(inputStr,0,inputStr.length() - 1);
+
+    if(answer)
+    {
+        cout<<"is Palindrome"<<endl;
+    }
+    else
+    {
+        cout<<"is Not Palindrome"<<endl;
+    }
+
+
     return 0;
+}
+
+bool recurseFunc(const string &s,int left,int right)
+{
+    if(left >= right)
+        return true;
+
+    if(s[left] != s[right])
+        return false;
+
+    return recurseFunc(s,left+1,right-1);
 }

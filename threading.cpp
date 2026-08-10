@@ -41,7 +41,9 @@ threading::threading()
         }
     }
 
-    iterate(0, 65000);   // try 1000, 5000, 10000, 20000... at 64000 crash happens
+    iterate(0, 40000);   // try 1000, 5000, 10000, 20000... at 64000 crash happens
+
+
 
     cout<<"######## ########################## ##########"<<endl;
 
